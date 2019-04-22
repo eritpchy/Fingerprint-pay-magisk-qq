@@ -111,7 +111,8 @@ void nativeForkAndSpecializePre(
         return;
     }
     char *niceName = jstringToC(env, *jse_name);
-    sHookEnable = equals(niceName, "com.tencent.mm");
+    sHookEnable = equals(niceName, "com.tencent.mobileqq")
+        || equals(niceName, "com.tencent.mobileqq:tool");
     if (niceName) {
         free(niceName);
     }
@@ -126,9 +127,9 @@ int nativeForkAndSpecializePost(JNIEnv *env, jclass clazz, jint res) {
             snprintf(appCacheDir, PATH_MAX - 1, "%s/cache", sAppDataDir);
 
             loadDex(env, 
-                env->NewStringUTF("/system/framework/libxfingerprint_pay_wechat.dex"),
+                env->NewStringUTF("/system/framework/libxfingerprint_pay_qq.dex"),
                 env->NewStringUTF(appCacheDir),
-                env->NewStringUTF("com.yyxx.wechatfp.xposed.plugin.XposedWeChatPlugin"),
+                env->NewStringUTF("com.yyxx.wechatfp.xposed.plugin.XposedQQPlugin"),
                 "main",
                 env->NewStringUTF(sAppDataDir)
             );

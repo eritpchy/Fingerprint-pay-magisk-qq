@@ -1,1 +1,1 @@
-./gradlew clean && ./gradlew :riru-module-xfingerprint-pay-wechat:zip && adb push ./release/* /sdcard/Download/
+./gradlew clean && ./gradlew :riru-module-xfingerprint-pay-qq:zip && adb push ./release/* /sdcard/Download/
