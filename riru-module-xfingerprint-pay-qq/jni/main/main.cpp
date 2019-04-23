@@ -8,6 +8,7 @@
 
 static bool sHookEnable = false;
 static char *sAppDataDir = NULL;
+static char *sNiceName = NULL;
 
 static char *jstringToC(JNIEnv * env, jstring jstr){
     char *ret = NULL;
@@ -99,23 +100,19 @@ void nativeForkAndSpecializePre(
         jstring *instructionSet, jstring *jappDataDir, jstring *packageName,
         jobjectArray *packagesForUID, jobjectArray *visibleVolIDs) {
     // packageName, packagesForUID, visibleVolIDs exists from Android Q
-    char *appDataDir = jstringToC(env, *jappDataDir);
-    if (appDataDir == NULL) {
-        LOGD("MEM ERR");
-        return;
-    }
-    sAppDataDir = strdup(appDataDir);
-    free(appDataDir);
+    sAppDataDir = jstringToC(env, *jappDataDir);
     if (sAppDataDir == NULL) {
         LOGD("MEM ERR");
         return;
     }
-    char *niceName = jstringToC(env, *jse_name);
-    sHookEnable = equals(niceName, "com.tencent.mobileqq")
-        || equals(niceName, "com.tencent.mobileqq:tool");
-    if (niceName) {
-        free(niceName);
+    sNiceName = jstringToC(env, *jse_name);
+    if (sNiceName == NULL) {
+        LOGD("MEM ERR");
+        return;
     }
+
+    sHookEnable = equals(sNiceName, "com.tencent.mobileqq")
+        || equals(sNiceName, "com.tencent.mobileqq:tool");
 }
 
 __attribute__((visibility("default")))
@@ -131,7 +128,7 @@ int nativeForkAndSpecializePost(JNIEnv *env, jclass clazz, jint res) {
                 env->NewStringUTF(appCacheDir),
                 env->NewStringUTF("com.yyxx.wechatfp.xposed.plugin.XposedQQPlugin"),
                 "main",
-                env->NewStringUTF(sAppDataDir)
+                env->NewStringUTF(sNiceName)
             );
         }
     } else {
