@@ -1,6 +1,14 @@
 # Magisk QQ指纹支付 (Fingerprint pay for QQ)
 
+通过事先录入支付密码, 加密保存至本地, 然后支付时调用系统指纹授权自动填写支付密码
+
 Magisk 版 [Xposed Fingerprint pay](https://github.com/eritpchy/Xposed-Fingerprint-pay)
+
+[Magisk 淘宝指纹支付](https://github.com/eritpchy/Fingerprint-pay-magisk-taobao)
+
+[Magisk 支付宝指纹支付](https://github.com/eritpchy/Fingerprint-pay-magisk-alipay)
+
+[Magisk 微信指纹支付](https://github.com/eritpchy/Fingerprint-pay-magisk-wechat)
 
 ## 最低要求
 
